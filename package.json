@@ -1,0 +1,27 @@
+{
+  "name": "searchLine",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "cls-bluebird": "^2.0.1",
+    "node-vkapi": "^2.1.0",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-s-alert": "^1.3.0",
+    "react-scripts": "1.0.11",
+    "redux": "^3.7.2",
+    "twitter-js-client": "0.0.5",
+    "twitter-node-client": "git+https://github.com/BoyCook/TwitterJSClient.git",
+    "vk-api-help": "^2.0.0",
+    "vkapi": "^1.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
