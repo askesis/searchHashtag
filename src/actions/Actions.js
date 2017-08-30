@@ -3,7 +3,13 @@ export const setQuestions = questions => ({
   questions: questions,
 });
 
-export const setAnswer = answer => ({
-  type: 'ANSWER',
-  answer: answer,
+export const countSetPosts = number => ({
+  type: 'COUNT_GET_POSTS',
+  number:number,
+})
+
+export const showAlert = value => ({
+  type:'ALERT_SHOW',
+  show: value,
+  count:0,
 })

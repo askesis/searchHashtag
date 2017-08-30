@@ -32,19 +32,25 @@ class SearchResult extends Component {
   }
 
 getDataFromVk(q){
- const vkRequest = new VK.VkRequest('eccf4148e22b7e6127d164a77305dd373d9b0c4c19d99166b310d61e9d763e2af4d7a7f81a416439bc353');
- const self = this;
-  vkRequest.method('newsfeed.search', { q:"#"+q, count:3 })
+  const vkRequest = new VK.VkRequest('0036c8ba02b2ba29e60ef424aea05ffd165123dfdddad8e0ceb318b8c5e9a5c2b249979a183d4743321de');
+  const self = this;
+  let countN = 0;
+  vkRequest.method('newsfeed.search', { q:"#"+q, count:100 })
+  
   .then(function(response) {
     const a = response.response.items.map( (item, index) => {
+      countN +=1;
       return item; 
     });
-   console.log(a);
+    self.props.countGetPosts(countN);
+    //console.log(a);
+    self.props.showAlert(true);
     self.setState({
       answer: a,
     });
     return a;
   })
+
   .catch({ name: 'VkApiError' }, function(error) {
     console.log(`VKApi error ${error.error_code} ${error.error_msg}`);
       switch(error.error_code) {
@@ -59,23 +65,27 @@ getDataFromVk(q){
       }
   })
   .catch(function(error) {
-    console.log(`Other error ${error.error_msg}`);
+    console.log(`Other error ${error}`);
   });
 }
 
-clickBtn(){
-  this.getDataFromVk(this.props.questions);
-  console.log(this.props.answer)
+
+
+clickBtn(){ 
+  
+  const timerId = setInterval( ()=>this.getDataFromVk(this.props.questions), 3000);
+  //this.getDataFromVk(this.props.questions);
+  console.log(timerId)
 }
 
   render(){
     return(
       <div>
-        <p>some paragraph</p>
-      
-        <Alert stack={{limit: 3}} />
+           
+        
         <Button onClick={ this.clickBtn.bind(this) }>go find!</Button>
         <GetResultSearch data={this.state.answer} />
+
       </div>
     )
   }
@@ -87,8 +97,9 @@ const SearchResultWithRedux = connect(
      answer: state.answer,
     }),
     {
+      countGetPosts: Actions.countSetPosts,
       setQuestions: Actions.setQuestions,
-      setAnswer: Actions.setAnswer,
+      showAlert:Actions.showAlert,
     }
 )(SearchResult)
 
